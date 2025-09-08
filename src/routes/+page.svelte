@@ -8,9 +8,9 @@
 
     import { cssValue, htmlValue, javascriptValue, typescriptValue } from "./_util/code";
 
-    let value = "";
+    let value = $state("");
 
-    let props: CodeMirror["$$prop_def"] = {
+    let props: CodeMirror["$$prop_def"] = $state({
         basic: true,
         useTab: true,
         editable: true,
@@ -21,13 +21,13 @@
         lang: null,
         theme: null,
         nodebounce: false
-    };
+    });
 
     const languages = ["custom", "javascript", "typescript", "css", "html"];
-    let language = "custom";
+    let language = $state("custom");
 
     const themes = ["default", "onedark"];
-    let theme = "default";
+    let theme = $state("default");
 
     function on_language_change(): void {
         switch (language) {
@@ -109,7 +109,7 @@
         <div class="props-section">
             <div class="input">
                 <label for="language">Language</label>
-                <select id="language" bind:value={language} on:change={on_language_change}>
+                <select id="language" bind:value={language} onchange={on_language_change}>
                     {#each languages as lang (lang)}
                         <option>{lang}</option>
                     {/each}
@@ -121,7 +121,7 @@
         <div class="props-section">
             <div class="input">
                 <label for="theme">Theme</label>
-                <select id="theme" bind:value={theme} on:change={on_theme_change}>
+                <select id="theme" bind:value={theme} onchange={on_theme_change}>
                     {#each themes as thm (thm)}
                         <option>{thm}</option>
                     {/each}

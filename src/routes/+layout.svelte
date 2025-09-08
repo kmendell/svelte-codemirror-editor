@@ -1,7 +1,7 @@
 <script lang="ts">
     import "../styles.css";
 
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     import { resolve } from "$app/paths";
 
     const nav = [
@@ -24,7 +24,7 @@
 
     <nav class="menu">
         {#each nav as item (item.path)}
-            <a href={resolve(item.path)} class="menu__item {$page.url.pathname === resolve(item.path) ? 'menu__item_active' : ''}">
+            <a href={resolve(item.path)} class="menu__item {page.url.pathname === resolve(item.path) ? 'menu__item_active' : ''}">
                 {item.text}
             </a>
         {/each}
