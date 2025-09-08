@@ -1,5 +1,5 @@
 <script lang="ts">
-    import CodeMirror from "$lib";
+    import CodeMirror, { type CodeMirrorProps } from "$lib";
 
     import { css } from "@codemirror/lang-css";
     import { html } from "@codemirror/lang-html";
@@ -10,17 +10,30 @@
 
     let value = $state("");
 
-    let props: CodeMirror["$$prop_def"] = $state({
-        basic: true,
+    let props: CodeMirrorProps = $state({
+        allowMultiSelect: true,
         useTab: true,
         editable: true,
         lineWrapping: false,
+        lineNumbers: true,
+        highlight: { activeLine: true, activeLineGutter: true, specialChars: true, selectionMatches: true },
+        history: true,
+        foldGutter: true,
+        drawSelection: true,
+        dropCursor: true,
+        indentOnInput: true,
+        syntaxHighlighting: true,
+        bracketMatching: true,
+        closeBrackets: true,
+        autocompletion: true,
+        rectangularSelection: true,
+        crosshairCursor: true,
         readonly: false,
         tabSize: 2,
         placeholder: null,
         lang: null,
         theme: null,
-        nodebounce: false
+        nodebounce: false,
     });
 
     const languages = ["custom", "javascript", "typescript", "css", "html"];
@@ -72,8 +85,8 @@
         <h5>Basic setup</h5>
         <div class="props-section">
             <div class="toggle">
-                <input id="basic" type="checkbox" bind:checked={props.basic} />
-                <label for="basic">Use basic setup</label>
+                <input id="basic" type="checkbox" bind:checked={props.allowMultiSelect as boolean} />
+                <label for="basic">Allow multi-select</label>
             </div>
             <div class="toggle">
                 <input id="editable" type="checkbox" bind:checked={props.editable} />
@@ -90,6 +103,60 @@
             <div class="toggle">
                 <input id="nodebounce" type="checkbox" bind:checked={props.nodebounce} />
                 <label for="nodebounce">No debounce</label>
+            </div>
+        </div>
+        <div class="props-section">
+            <div class="toggle">
+                <input id="basic" type="checkbox" bind:checked={props.lineNumbers as boolean} />
+                <label for="basic">Show line numbers</label>
+            </div>
+            <div class="toggle">
+                <input id="editable" type="checkbox" bind:checked={props.history as boolean} />
+                <label for="editable">History</label>
+            </div>
+            <div class="toggle">
+                <input id="readonly" type="checkbox" bind:checked={props.foldGutter as boolean} />
+                <label for="readonly">Fold Gutter</label>
+            </div>
+            <div class="toggle">
+                <input id="lineWrapping" type="checkbox" bind:checked={props.drawSelection as boolean} />
+                <label for="lineWrapping">Draw Selection</label>
+            </div>
+            <div class="toggle">
+                <input id="nodebounce" type="checkbox" bind:checked={props.dropCursor} />
+                <label for="nodebounce">Drop Cursor</label>
+            </div>
+        </div>
+        <div class="props-section">
+            <div class="toggle">
+                <input id="basic" type="checkbox" bind:checked={props.indentOnInput as boolean} />
+                <label for="basic">Indent on Input</label>
+            </div>
+            <div class="toggle">
+                <input id="editable" type="checkbox" bind:checked={props.syntaxHighlighting as boolean} />
+                <label for="editable">Syntax Highlighting</label>
+            </div>
+            <div class="toggle">
+                <input id="readonly" type="checkbox" bind:checked={props.bracketMatching as boolean} />
+                <label for="readonly">Bracket Matching</label>
+            </div>
+            <div class="toggle">
+                <input id="lineWrapping" type="checkbox" bind:checked={props.closeBrackets as boolean} />
+                <label for="lineWrapping">Close Brackets</label>
+            </div>
+            <div class="toggle">
+                <input id="nodebounce" type="checkbox" bind:checked={props.autocompletion as boolean} />
+                <label for="nodebounce">Autocompletion</label>
+            </div>
+        </div>
+        <div class="props-section">
+            <div class="toggle">
+                <input id="basic" type="checkbox" bind:checked={props.rectangularSelection as boolean} />
+                <label for="basic">Rectangular Selection</label>
+            </div>
+            <div class="toggle">
+                <input id="editable" type="checkbox" bind:checked={props.crosshairCursor as boolean} />
+                <label for="editable">Crosshair Cursor</label>
             </div>
         </div>
 

@@ -7,6 +7,13 @@
 
 A svelte component to create a [CodeMirror 6](https://codemirror.net/6/) editor.
 
+## Compatibility Matrix
+
+| svelte-codemirror-editor version | svelte version |
+|----------------------------------|----------------|
+| v1.x                             | v3, v4, v5     |
+| v2.x                             | v5 *(runes)*   |
+
 ## Installation
 
 ```bash
@@ -30,28 +37,44 @@ To use `svelte-codemirror-editor`, you need to import the package and use it as 
 
 ## Properties
 
-| Property      | Type              | Description                                                          | Default value |
-| ------------- | ----------------- | -------------------------------------------------------------------- | ------------- |
-| `value`       | `string`          | The value that will be displayed and edited in the CodeMirror editor | `""`          |
-| `basic`       | `boolean`         | Whether to use CodeMirror `basicSetup` extensions.                   | `true`        |
-| `lang`        | `LanguageSupport` | The language extension that will parse and highlight the value.      | `undefined`   |
-| `theme`       | `Extension`       | The theme extension to customize the appearence of the editor.       | `undefined`   |
-| `extensions`  | `Extension[]`     | Additional extensions to inject in the editor.                       | `[]`          |
-| `useTab`      | `boolean`         | Whether to use the `Tab` shortcut to handle indentation.             | `true`        |
-| `tabSize`     | `number`          | The number of space of an indentation level.                         | `2`           |
-| `editable`    | `boolean`         | Whether to make the editor editable or not.                          | `true`        |
-| `readonly`    | `boolean`         | Whether to make the editor readonly or not.                          | `false`       |
-| `lineWrapping`| `boolean`         | Whether to wrap lines in the editor or not.                          | `false`       |
-| `placeholder` | `string`          | A placeholder to include when value is empty.                        | `undefined`   |
-| `nodebounce`  | `boolean`         | Whether to stop debouncing value updates.                            | `false`       |
-| `styles`      | `ThemeSpec`       | In-place theme configuration. _See exemple below_.                   | `undefined`   |
+| Property               | Type                 | Description                                                           | Default value |
+| ---------------------- | -------------------- | --------------------------------------------------------------------- | ------------- |
+| `value`                | `string`             | The value that will be displayed and edited in the CodeMirror editor. | `""`          |
+| `class`                | `ClassValue`         | Class value to add additional css classes to CodeMirror editor.       | `""`          |
+| `lang`                 | `LanguageSupport`    | The language extension that will parse and highlight the value.       | `undefined`   |
+| `theme`                | `Extension`          | The theme extension to customize the appearence of the editor.        | `undefined`   |
+| `extensions`           | `Extension[]`        | Additional extensions to inject in the editor.                        | `[]`          |
+| `allowMultiSelect`     | `boolean`            | Whether to allow multi-selecting text.                                | `true`        |
+| `useTab`               | `boolean`            | Whether to use the `Tab` shortcut to handle indentation.              | `true`        |
+| `tabSize`              | `number`             | The number of space of an indentation level.                          | `2`           |
+| `editable`             | `boolean`            | Whether to make the editor editable or not.                           | `true`        |
+| `readonly`             | `boolean`            | Whether to make the editor readonly or not.                           | `false`       |
+| `lineWrapping`         | `boolean`            | Whether to wrap lines in the editor or not.                           | `false`       |
+| `lineNumbers`          | `boolean`            | Whether to show line numbers or not.                                  | `true`        |
+| `highlight`            | `object`             | Hightlighting options.                                                | `{}`          |
+| `history`              | `boolean` | `object` | Enable/Disable and/or configure history.                              | `true`        |
+| `foldGutter`           | `boolean` | `object` | Enable/disable and/or configure fold gutter.                          | `true`        |
+| `drawSelection`        | `boolean` | `object` | Enable/disable and/or configure draw selection.                       | `true`        |
+| `dropCursor`           | `boolean`            | Whether to show the drop cursor.                                      | `true`        |
+| `lineNumbers`          | `boolean`            | Whether to indent on input.                                           | `true`        |
+| `syntaxHighlighting`   | `boolean` | `object` | Enable/disable and/or configure syntax highlighting.                  | `true`        |
+| `bracketMatching`      | `boolean` | `object` | Enable/disable and/or configure bracket matching.                     | `true`        |
+| `closeBrackets`        | `boolean`            | Whether to close brackets automatically.                              | `true`        |
+| `autocompletion`       | `boolean` | `object` | Enable/disable and/or configure autocompletion.                       | `true`        |
+| `rectangularSelection` | `boolean` | `object` | Enable/disable and/or configure rectangular selection.                | `true`        |
+| `crosshairCursor`      | `boolean` | `object` | Enable/disable and/or configure crosshair cursor.                     | `true`        |
+| `placeholder`          | `string`             | The placeholder text or element to show when the editor is empty.     | `undefined`   |
+| `nodebounce`           | `boolean`            | Whether to stop debouncing value updates.                             | `false`       |
+| `styles`               | `ThemeSpec`          | In-place theme configuration. _See exemple below_.                    | `undefined`   |
+| `nodebounce`           | `boolean`            | Disable onchange debounce (warning: impact performance).              | `false`       |
 
 ## Events
 
-| Event    | Type         | Description                                                                     |
-| -------- | ------------ | ------------------------------------------------------------------------------- |
-| `change` | `string`     | Trigger when the code changes.                                                  |
-| `ready`  | `EditorView` | Trigger when the editor is ready. Allows to retrieve the `EditorView` instance. |
+| Event           | Type         | Description                                                                     |
+| --------------- | ------------ | ------------------------------------------------------------------------------- |
+| `onchange`      | `string`     | Trigger when the code changes.                                                  |
+| `onready`       | `EditorView` | Trigger when the editor is ready. Allows to retrieve the `EditorView` instance. |
+| `onreconfigure` | `EditorView` | Trigger when the editor is reconfiguring because of props update.               |
 
 ## Usage with vite / svelte-kit
 
@@ -77,7 +100,7 @@ const config = {
     import CodeMirror from "svelte-codemirror-editor";
     import { javascript } from "@codemirror/lang-javascript";
 
-    let value = "";
+    let value = $state("");
 </script>
 
 <CodeMirror bind:value lang={javascript()} />
@@ -91,7 +114,7 @@ const config = {
     import { javascript } from "@codemirror/lang-javascript";
     import { oneDark } from "@codemirror/theme-one-dark";
 
-    let value = "";
+    let value = $state("");
 </script>
 
 <CodeMirror bind:value lang={javascript()} theme={oneDark} />
@@ -104,7 +127,7 @@ const config = {
     import CodeMirror from "svelte-codemirror-editor";
     import { javascript } from "@codemirror/lang-javascript";
 
-    let value = "";
+    let value = $state("");
 </script>
 
 <CodeMirror
@@ -125,7 +148,7 @@ const config = {
 ```svelte
 <script lang="ts">
     import CodeMirror from "svelte-codemirror-editor";
-    let view: EditorView;
+    let view = $state<EditorView>();
 </script>
 
 <CodeMirror on:ready={(e) => view = e.detail} />

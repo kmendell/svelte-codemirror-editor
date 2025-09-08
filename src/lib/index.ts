@@ -1,1 +1,2 @@
-export { default as default, type ThemeSpec, type StyleSpec } from "./CodeMirror.svelte";
+export { default as default } from "./CodeMirror.svelte";
+export type * from "./CodeMirror.svelte";
