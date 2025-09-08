@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/touchifyapp/svelte-codemirror-editor/compare/v1.4.1...v1.4.2) (2025-09-08)
+
+
+### Bug Fixes
+
+* self closing tag to avoid warnings ([1d21c2c](https://github.com/touchifyapp/svelte-codemirror-editor/commit/1d21c2c2ff2243dc705f86d21cd3608bad12fa6c))
+
 ## [1.4.1](https://github.com/touchifyapp/svelte-codemirror-editor/compare/v1.4.0...v1.4.1) (2024-09-05)
 
 
