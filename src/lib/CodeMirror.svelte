@@ -35,7 +35,7 @@
     export let nodebounce = false;
 
     const is_browser = typeof window !== "undefined";
-    const dispatch = createEventDispatcher<{ change: string, ready: EditorView, reconfigure: EditorView }>();
+    const dispatch = createEventDispatcher<{ change: string; ready: EditorView; reconfigure: EditorView }>();
 
     let element: HTMLDivElement;
     let view: EditorView;
@@ -51,14 +51,14 @@
         ...extensions,
     ];
 
-    $: view && update(value);
-    $: view && state_extensions && reconfigure();
+    $: if (view) update(value);
+    $: if (view && state_extensions) reconfigure();
 
     $: on_change = nodebounce ? handle_change : debounce(handle_change, 300);
 
     onMount(() => {
         view = create_editor_view();
-        dispatch('ready', view);
+        dispatch("ready", view);
     });
     onDestroy(() => view?.destroy());
 
@@ -85,8 +85,8 @@
         view.dispatch({
             effects: StateEffect.reconfigure.of(state_extensions),
         });
-        
-        dispatch('reconfigure', view);
+
+        dispatch("reconfigure", view);
     }
 
     function update(value: string | null | undefined): void {

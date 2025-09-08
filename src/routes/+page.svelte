@@ -110,7 +110,7 @@
             <div class="input">
                 <label for="language">Language</label>
                 <select id="language" bind:value={language} on:change={on_language_change}>
-                    {#each languages as lang}
+                    {#each languages as lang (lang)}
                         <option>{lang}</option>
                     {/each}
                 </select>
@@ -122,7 +122,7 @@
             <div class="input">
                 <label for="theme">Theme</label>
                 <select id="theme" bind:value={theme} on:change={on_theme_change}>
-                    {#each themes as thm}
+                    {#each themes as thm (thm)}
                         <option>{thm}</option>
                     {/each}
                 </select>

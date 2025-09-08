@@ -2,15 +2,15 @@
     import "../styles.css";
 
     import { page } from "$app/stores";
-    import { base } from "$app/paths";
+    import { resolve } from "$app/paths";
 
     const nav = [
-        { path: `${base}`, text: "Configurator" },
-        { path: `${base}/javascript`, text: "Javascript" },
-        { path: `${base}/typescript`, text: "Typescript" },
-        { path: `${base}/html`, text: "HTML" },
-        { path: `${base}/css`, text: "CSS" },
-    ];
+        { path: "/", text: "Configurator" },
+        { path: "/javascript", text: "Javascript" },
+        { path: "/typescript", text: "Typescript" },
+        { path: "/html", text: "HTML" },
+        { path: "/css", text: "CSS" },
+    ] as const;
 </script>
 
 <svelte:head>
@@ -19,12 +19,12 @@
 
 <section class="layout">
     <header class="header">
-        <h1><a href={base}>svelte-codemirror-editor</a></h1>
+        <h1><a href={resolve("/")}>svelte-codemirror-editor</a></h1>
     </header>
 
     <nav class="menu">
         {#each nav as item (item.path)}
-            <a href={item.path} class="menu__item {$page.url.pathname === item.path ? 'menu__item_active' : ''}">
+            <a href={resolve(item.path)} class="menu__item {$page.url.pathname === resolve(item.path) ? 'menu__item_active' : ''}">
                 {item.text}
             </a>
         {/each}
