@@ -182,6 +182,7 @@
     let state_extensions = $derived([...get_base_extensions(), ...get_theme(), ...extensions]);
 
     $effect(() => {
+        //eslint-disable-next-line @typescript-eslint/no-unused-expressions
         value;
         if (view) untrack(() => update(value));
     });
