@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/touchifyapp/svelte-codemirror-editor/compare/v1.4.2...v2.0.0) (2025-09-08)
+
+
+### Features
+
+* upgrade to Svelte 5 ([1eb7f59](https://github.com/touchifyapp/svelte-codemirror-editor/commit/1eb7f595e148e823986489876b31ac7743b39bb0))
+
+
+### BREAKING CHANGES
+
+* drop compatibility with Svelte v3 and v4
+
 ## [1.4.2](https://github.com/touchifyapp/svelte-codemirror-editor/compare/v1.4.1...v1.4.2) (2025-09-08)
 
 
